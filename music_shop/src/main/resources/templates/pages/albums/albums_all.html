@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <meta charset="utf-8">
+    <title>Albums</title>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-2 mt-2">
+                <div class="card-header">
+                    Albums
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>title</th>
+                            <th>cover</th>
+                            <th>created</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="album ,iter : ${albums}">
+                            <td th:text="${iter.count}"></td>
+                            <td th:text="${album.getTitle()}"></td>
+                            <td th:text="${album.getCover()}"></td>
+                            <td th:text="${#calendars.format(album.getCreated(),'dd MMMM yyyy')}"></td>
+                            <td>
+                                <a th:href="@{'/albums/details/' + ${album.getId()}}" type="button" class="btn btn-primary">details</a>
+                            </td>
+                            <td>
+                                <a th:href="@{'/albums/delete/' + ${album.getId()}}" type="button" class="btn btn-danger">delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
